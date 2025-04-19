@@ -1,0 +1,49 @@
+<!-- templates/fodder/email/fodder_alert_match.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background-color: #4CAF50; color: white; padding: 10px; text-align: center; }
+        .content { padding: 20px; border: 1px solid #ddd; }
+        .button { background-color: #4CAF50; color: white; padding: 10px 15px; text-decoration: none; display: inline-block; border-radius: 4px; }
+        .footer { font-size: 12px; color: #777; text-align: center; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Digicow Fodder Alert</h2>
+        </div>
+        <div class="content">
+            <p>Hello {{ user.first_name|default:user.username }},</p>
+            
+            <p>Good news! We've found fodder matching your alert criteria:</p>
+            
+            <ul>
+                <li><strong>Fodder Type:</strong> {{ fodder_listing.fodder_type.name }}</li>
+                <li><strong>Location:</strong> {{ fodder_listing.county.name }}</li>
+                <li><strong>Price:</strong> KSh {{ fodder_listing.price_per_unit }} per {{ fodder_listing.unit }}</li>
+                <li><strong>Quantity Available:</strong> {{ fodder_listing.quantity_available }} {{ fodder_listing.unit }}s</li>
+                <li><strong>Seller:</strong> {{ fodder_listing.seller.get_full_name|default:fodder_listing.seller.username }}</li>
+            </ul>
+            
+            <p>Your alert was looking for {{ alert.fodder_type.name|default:"any type of fodder" }} in {{ alert.county.name }} 
+            {% if alert.max_price %}with a maximum price of KSh {{ alert.max_price }}{% endif %}.</p>
+            
+            <p style="text-align: center; margin-top: 30px;">
+                <a href="{{ listing_url }}" class="button">View Fodder Details</a>
+            </p>
+            
+            <p>Act quickly as fodder listings may sell fast!</p>
+            
+            <p>Regards,<br>The Digicow Team</p>
+        </div>
+        <div class="footer">
+            <p>This is an automated notification from Digicow. Please do not reply to this email.</p>
+            <p>To stop receiving these alerts, log in to your Digicow account and deactivate or delete this alert.</p>
+        </div>
+    </div>
+</body>
+</html>

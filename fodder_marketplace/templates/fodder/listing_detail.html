@@ -1,0 +1,102 @@
+<!-- Fodder listing detail template -->
+<!-- templates/fodder/listing_detail.html -->
+
+{% extends "fodder/base_fodder.html" %}
+
+{% block fodder_title %}{{ listing.fodder_type.name }} Details{% endblock %}
+{% load widget_tweaks %}
+{% block fodder_content %}
+<div class="mb-3">
+    <a href="{% url 'fodder_marketplace:fodder_listings' %}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> Back to Listings
+    </a>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                {% if listing.images.all %}
+                    <div id="fodderCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            {% for image in listing.images.all %}
+                                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                    <img src="{{ image.image.url }}" class="d-block w-100" alt="Fodder Image" style="height: 300px; object-fit: cover;">
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {% if listing.images.count > 1 %}
+                            <button class="carousel-control-prev" type="button" data-bs-target="#fodderCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#fodderCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="bg-light d-flex align-items-center justify-content-center" style="height: 300px;">
+                        <span class="text-muted">No image available</span>
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div class="col-md-6">
+                <h2 class="mb-3">{{ listing.fodder_type.name }}</h2>
+                <p class="lead">KSh {{ listing.price_per_unit }} per {{ listing.unit }}</p>
+                
+                <div class="mb-3">
+                    <strong>Total Available:</strong> {{ listing.quantity }} {{ listing.unit }}
+                </div>
+                
+                <div class="mb-3">
+                    <strong>Location:</strong> {{ listing.county.name }}, {{ listing.specific_location }}
+                </div>
+                
+                <div class="mb-3">
+                    <strong>Posted:</strong> {{ listing.date_posted|date:"F d, Y" }}
+                </div>
+                
+                <div class="mb-3">
+                    <strong>Seller:</strong> {{ listing.seller.username }}
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-12">
+                <h5>Description</h5>
+                <p>{{ listing.description|linebreaks }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if user.is_authenticated and user != listing.seller %}
+    <div class="card">
+        <div class="card-header bg-light">
+            <h5 class="mb-0">Contact Seller</h5>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="{{ interest_form.message.id_for_label }}" class="form-label">Your Message</label>
+                    {{ interest_form.message.errors }}
+                    {{ interest_form.message|add_class:"form-control" }}
+                    <div class="form-text">Include details about how much you want to buy, when you need it, etc.</div>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% elif not user.is_authenticated %}
+    <div class="alert alert-info">
+        <a href="{% url 'login' %}?next={{ request.path }}">Login</a> to contact the seller about this fodder.
+    </div>
+{% endif %}
+{% endblock %}

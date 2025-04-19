@@ -1,0 +1,9 @@
+[
+    {"model": "fodder_marketplace.foddertype", "pk": 1, "fields": {"name": "Hay", "description": "Dried grass or legumes used as livestock feed"}},
+    {"model": "fodder_marketplace.foddertype", "pk": 2, "fields": {"name": "Silage", "description": "Fermented, high-moisture stored fodder"}},
+    {"model": "fodder_marketplace.foddertype", "pk": 3, "fields": {"name": "Lucerne/Alfalfa", "description": "High-protein legume fodder"}},
+    {"model": "fodder_marketplace.foddertype", "pk": 4, "fields": {"name": "Napier Grass", "description": "High-yielding perennial tropical grass"}},
+    {"model": "fodder_marketplace.foddertype", "pk": 5, "fields": {"name": "Rhodes Grass", "description": "Drought-resistant perennial grass"}},
+    {"model": "fodder_marketplace.foddertype", "pk": 6, "fields": {"name": "Maize Stover", "description": "Dried stalks and leaves of maize"}},
+    {"model": "fodder_marketplace.foddertype", "pk": 7, "fields": {"name": "Dairy Meal", "description": "Prepared animal feed for dairy cows"}}
+  ]

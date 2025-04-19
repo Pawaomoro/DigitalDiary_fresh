@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Fodder Calculator | Digital Dairy{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/fodder-calculator.css' %}">
+{% endblock %}
+{% block content %}
+<div class="container">
+  <h1>Dairy Farm Fodder-to-Milk Calculator</h1>
+  <p>Calculate optimal fodder combinations and predict milk production for your dairy farm.</p>
+
+  <!-- Farm Information Card -->
+  <div class="card">
+    <h2>Farm Information</h2>
+    <div class="input-section">
+      <div class="input-group">
+        <label for="cattleCount">Number of Milking Cows:</label>
+        <input type="number" id="cattleCount" min="1" value="10" class="form-control">
+      </div>
+      
+      <div class="input-group">
+        <label for="cattleBreed">Predominant Breed:</label>
+        <select id="cattleBreed" class="form-control">
+          <option value="holstein">Holstein</option>
+          <option value="jersey">Jersey</option>
+          <option value="brownswiss">Brown Swiss</option>
+          <option value="guernsey">Guernsey</option>
+          <option value="ayrshire">Ayrshire</option>
+          <option value="other">Other/Mixed</option>
+        </select>
+      </div>
+      
+      <div class="input-group">
+        <label for="avgWeight">Average Cow Weight (kg):</label>
+        <input type="number" id="avgWeight" min="300" max="900" value="550" class="form-control">
+      </div>
+      
+      <div class="input-group">
+        <label for="lactationStage">Average Lactation Stage:</label>
+        <select id="lactationStage" class="form-control">
+          <option value="early">Early (0-100 days)</option>
+          <option value="mid" selected>Mid (100-200 days)</option>
+          <option value="late">Late (200+ days)</option>
+          <option value="mixed">Mixed</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fodder Inputs Card -->
+  <div class="card">
+    <h2>Fodder Inputs</h2>
+    <div id="fodderList" class="input-section">
+      <!-- Initial fodder items -->
+      <div class="fodder-item">
+        <div class="input-group" style="flex: 2">
+          <label>Fodder Type:</label>
+          <select class="fodder-type form-control">
+            <option value="alfalfa_hay">Alfalfa Hay</option>
+            <option value="grass_hay">Grass Hay</option>
+            <option value="corn_silage">Corn Silage</option>
+            <option value="grain_mix">Grain Mix/Concentrate</option>
+            <option value="pasture">Pasture</option>
+            <option value="soybean_meal">Soybean Meal</option>
+            <option value="cottonseed">Cottonseed</option>
+            <option value="beet_pulp">Beet Pulp</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="input-group" style="flex: 1">
+          <label>Amount (kg/cow/day):</label>
+          <input type="number" class="fodder-amount form-control" min="0" step="0.1" value="5">
+        </div>
+        <div class="remove-fodder">✕</div>
+      </div>
+    </div>
+
+    <button class="add-fodder-btn btn btn-success" id="addFodder">
+      + Add Another Fodder
+    </button>
+
+    <div class="text-center mt-3">
+      <button id="calculateBtn" class="btn btn-primary">
+        Calculate Milk Production
+      </button>
+    </div>
+  </div>
+
+  <!-- Results Section -->
+  <div class="card results-section" id="resultsCard" style="display: none;">
+    <h2>Milk Production Results</h2>
+    <!-- ... (keep your existing results structure) ... -->
+  </div>
+</div>
+{% endblock %}
+<!-- Static Files at Bottom -->
+<link rel="stylesheet" href="{% static 'css/fodder-calculator.css' %}">
+<script src="{% static 'js/fodder-calculator.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,11 @@
+django
+django-heroku
+python-dateutil
+djangorestframework
+apscheduler
+fcm_django
+gunicorn
+django-mathfilters
+django_registration
+django-cors-headers
+

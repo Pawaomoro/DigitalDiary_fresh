@@ -1,0 +1,72 @@
+/* Base Styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f7fbff;
+    color: #333;
+  }
+  
+  h1, h2 {
+    color: #0b5394;
+  }
+  
+  /* Layout Components */
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  /* Input Sections */
+  .input-section, .results-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .fodder-inputs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+  }
+  
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  /* Tables & Results */
+  .results-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+  }
+  
+  .results-table th, .results-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  /* Utility Classes */
+  .text-danger { color: #d32f2f; }
+  .text-warning { color: #ff9800; }
+  .text-success { color: #4caf50; }
+  
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+    .fodder-inputs {
+      grid-template-columns: 1fr;
+    }
+  }

@@ -1,0 +1,64 @@
+{% extends "fodder/base_fodder.html" %}
+{% load widget_tweaks %} 
+{% block fodder_title %}My Fodder Alerts{% endblock %}
+
+{% block fodder_content %}
+<div class="mb-4">
+    <a href="{% url 'fodder_marketplace:create_fodder_alert' %}" class="btn btn-success">
+        <i class="bi bi-plus-circle"></i> Create New Alert
+    </a>
+</div>
+
+<div class="card">
+    <div class="card-header bg-light">
+        <h5 class="mb-0">Your Active Alerts</h5>
+    </div>
+    <div class="card-body">
+        {% if alerts %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>County</th>
+                            <th>Fodder Type</th>
+                            <th>Max Price</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for alert in alerts %}
+                            <tr>
+                                <td>{{ alert.county.name }}</td>
+                                <td>{{ alert.fodder_type.name|default:"Any type" }}</td>
+                                <td>{% if alert.max_price %}KSh {{ alert.max_price }}{% else %}Any price{% endif %}</td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <form method="post" action="{% url 'fodder_marketplace:toggle_fodder_alert' alert.pk %}">
+                                            {% csrf_token %}
+                                            {% if alert.active %}
+                                                <button type="submit" class="btn btn-sm btn-outline-secondary">Deactivate</button>
+                                            {% else %}
+                                                <button type="submit" class="btn btn-sm btn-outline-success">Activate</button>
+                                            {% endif %}
+                                        </form>
+                                        <form method="post" action="{% url 'fodder_marketplace:delete_fodder_alert' alert.pk %}">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                You don't have any fodder alerts set up. 
+                <a href="{% url 'fodder_marketplace:create_fodder_alert' %}">Create your first alert</a> 
+                to be notified when fodder matching your criteria becomes available.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

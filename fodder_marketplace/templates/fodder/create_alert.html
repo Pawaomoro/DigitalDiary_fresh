@@ -1,0 +1,67 @@
+<!-- Create fodder alert template -->
+<!-- templates/fodder/create_alert.html -->
+
+{% extends "fodder/base_fodder.html" %}
+
+{% block fodder_title %}Create Fodder Alert{% endblock %}
+{% load widget_tweaks %} 
+{% block fodder_content %}
+<div class="card">
+    <div class="card-header bg-light">
+        <h5 class="mb-0">Set Up Fodder Alert</h5>
+    </div>
+    <div class="card-body">
+        <p class="lead">Get notified when fodder matching your criteria becomes available</p>
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="{{ form.county.id_for_label }}" class="form-label">County <span class="text-danger">*</span></label>
+                    {{ form.county.errors }}
+                    {{ form.county|add_class:"form-select" }}
+                    <div class="form-text">Select the county where you're looking for fodder</div>
+                </div>
+            </div>
+            
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="{{ form.fodder_type.id_for_label }}" class="form-label">Fodder Type (Optional)</label>
+                    {{ form.fodder_type.errors }}
+                    {{ form.fodder_type|add_class:"form-select" }}
+                    <div class="form-text">Leave blank to be notified about any type of fodder</div>
+                </div>
+            </div>
+            
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="{{ form.max_price.id_for_label }}" class="form-label">Maximum Price per Unit (KSh) (Optional)</label>
+                    {{ form.max_price.errors }}
+                    {{ form.max_price|add_class:"form-control" }}
+                    <div class="form-text">Leave blank if price is not a concern</div>
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="emailNotification" checked>
+                    <label class="form-check-label" for="emailNotification">
+                        Email Notifications
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="smsNotification">
+                    <label class="form-check-label" for="smsNotification">
+                        SMS Notifications
+                    </label>
+                </div>
+            </div>
+            
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Create Alert</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

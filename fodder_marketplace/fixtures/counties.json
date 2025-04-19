@@ -1,0 +1,9 @@
+
+[
+  {"model": "fodder_marketplace.county", "pk": 1, "fields": {"name": "Nairobi"}},
+  {"model": "fodder_marketplace.county", "pk": 2, "fields": {"name": "Kiambu"}},
+  {"model": "fodder_marketplace.county", "pk": 3, "fields": {"name": "Nakuru"}},
+  {"model": "fodder_marketplace.county", "pk": 4, "fields": {"name": "Uasin Gishu"}},
+  {"model": "fodder_marketplace.county", "pk": 5, "fields": {"name": "Kajiado"}}
+  
+]
