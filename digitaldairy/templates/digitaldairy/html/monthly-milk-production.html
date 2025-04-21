@@ -50,9 +50,9 @@
 								<th> {{ previous_month_date|date:"F Y" }}(Kgs) </th>
 								<th> {{ selected_month_date|date:"F Y" }}(Kgs) </th>
 								<th> Milk Prod. Difference </th>
-								<th> Daily Average(Kgs)</th>
-								<th> Month Target(Kgs)</th>
-								<th> Variance(Kgs)</th>
+								<th> Daily Average(Litres)</th>
+								<th> Month Target(Litres)</th>
+								<th> Variance(Litres)</th>
 							</tr>
 						</thead>
 						<tbody class="text-center">
@@ -82,7 +82,7 @@
 							Total Milk Quantity:
 						</p>
 						<p class="col-lg-6 col-sm-6 col-md-6 text-center">
-							{{total_selected_month_milk_quantity|floatformat:2}} Kgs
+							{{total_selected_month_milk_quantity|floatformat:2}} Litres
 						</p>
 					</div>
 					<div class="row">

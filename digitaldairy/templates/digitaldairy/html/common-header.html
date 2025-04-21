@@ -266,6 +266,64 @@
 	<script type="text/javascript" src="{% static 'js/vfs_fonts.js' %}"></script>
 	<script type="text/javascript" src="{% static 'js/datatables.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+	<script>
+		// Save the original jQuery.ajax function
+		var originalAjax = $.ajax;
+		
+		// Override jQuery.ajax
+		$.ajax = function(url, options) {
+			if (typeof url === "object") {
+				options = url;
+				url = undefined;
+			}
+			
+			options = options || {};
+			
+			// Replace any Heroku URLs with local
+			if (options.url && options.url.includes('digitaldairy.herokuapp.com')) {
+				options.url = options.url.replace('https://digitaldairy.herokuapp.com', 'http://127.0.0.1:8000');
+			}
+			
+			return originalAjax.call(this, options);
+		};
+		
+		// Override jQuery.post
+		var originalPost = $.post;
+		$.post = function(url, data, callback, type) {
+			// Replace any Heroku URLs with local
+			if (url && url.includes('digitaldairy.herokuapp.com')) {
+				url = url.replace('https://digitaldairy.herokuapp.com', 'http://127.0.0.1:8000');
+			}
+			
+			return originalPost.call(this, url, data, callback, type);
+		};
+		
+		// Intercept milk form specifically
+		$(document).ready(function() {
+			$('#milkInputForm').off('submit').on('submit', function(event) {
+				event.preventDefault();
+				var formData = $(this).serialize();
+				var localUrl = 'http://127.0.0.1:8000/digitaldairy/save_milk_production';
+				
+				$.ajax({
+					url: localUrl,
+					type: 'POST',
+					data: formData,
+					success: function(data) {
+						// Instead of showing an alert, just reload or update the UI
+						location.reload();
+					},
+					error: function(xhr, status, error) {
+						console.error("Error:", error);
+						// You might want to keep this alert for errors
+						// alert("Failed to save record: " + error);
+					}
+				});
+				
+				return false;
+			});
+		});
+		</script>
 </body>
 
 </html>

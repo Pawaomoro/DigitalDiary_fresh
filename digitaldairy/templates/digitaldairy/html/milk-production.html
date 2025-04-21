@@ -489,5 +489,32 @@ window.sessionStorage.setItem('milk_p_target_' + object.cow_id, JSON.stringify(o
 			</div>
 		</div>
 	</section>
+	<script>
+		// Force postUrl to local server
+		var postUrl = 'http://127.0.0.1:8000';
+		console.log('postUrl set to:', postUrl);
+		
+		// Override the milk form submission
+		$(document).ready(function() {
+		  $('#milkInputForm').off('submit'); // Remove any existing handlers
+		  $('#milkInputForm').on('submit', function(event) {
+			event.preventDefault();
+			var formData = $(this).serialize();
+			console.log('Submitting to local server:', postUrl + '/digitaldairy/save_milk_production');
+			
+			$.post(postUrl + '/digitaldairy/save_milk_production', formData, function(data) {
+			  console.log('Success:', data);
+			  window.sessionStorage.setItem('milk_p_' + data.id, JSON.stringify(data));
+			  alert('Record saved successfully!');
+			  location.reload(); // Reload the page to show the new record
+			}).fail(function(error) {
+			  console.error('Error:', error);
+			  alert('Failed to save record');
+			});
+			
+			return false;
+		  });
+		});
+		</script>
 </section>
 {% endblock %}
